@@ -1,7 +1,7 @@
 {
   "builds": [
     {
-      "src": "public/**",  // or "dist/**" or "build/**" based on your project
+      "src": "dist/**",  // or "dist/**" or "build/**" based on your project
       "use": "@vercel/static"
     }
   ],
