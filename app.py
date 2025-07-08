@@ -305,3 +305,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+    st.set_page_config(page_title="Urban Parking System")
