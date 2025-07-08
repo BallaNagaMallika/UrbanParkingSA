@@ -1,0 +1,14 @@
+{
+  "builds": [
+    {
+      "src": "public/**",  // or "dist/**" or "build/**" based on your project
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ]
+}
