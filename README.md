@@ -25,14 +25,3 @@ This solution helps:
 | `Folium`         | Interactive maps integration        |
 | `Plotly`         | Advanced interactive visualizations |
 | `GitHub`         | Version control and code hosting    |
-
----
-
-## 🧠 Architecture Diagram
-
-```mermaid
-flowchart TD
-    A[Raw Parking Data (CSV/API)] --> B[Pandas Data Processing]
-    B --> C[Data Analysis & Metrics]
-    C --> D[Streamlit App Interface]
-    D --> E[Visualizations (Map, Charts)]
