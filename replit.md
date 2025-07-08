@@ -107,3 +107,4 @@ Preferred communication style: Simple, everyday language.
 
 Changelog:
 - July 07, 2025. Initial setup
+- July 08, 2025. Integrated real parking dataset with 500 records from 14 unique parking lots, added data source selection (Real Dataset vs Simulated Data), updated models to handle variable number of parking lots, enhanced dashboard to display real lot names and data

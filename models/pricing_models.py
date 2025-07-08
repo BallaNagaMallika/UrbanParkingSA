@@ -9,10 +9,11 @@ class BaselinePricingModel:
     Price(t+1) = Price(t) + α × (Occupancy / Capacity)
     """
     
-    def __init__(self, base_price: float = 10.0, alpha: float = 0.5):
+    def __init__(self, base_price: float = 10.0, alpha: float = 0.5, num_lots: int = 14):
         self.base_price = base_price
         self.alpha = alpha
-        self.current_prices = np.full(14, base_price)  # 14 parking lots
+        self.num_lots = num_lots
+        self.current_prices = np.full(num_lots, base_price)
         self.min_price = base_price * 0.5
         self.max_price = base_price * 2.0
     
@@ -41,7 +42,7 @@ class BaselinePricingModel:
     
     def reset_prices(self):
         """Reset all prices to base price."""
-        self.current_prices = np.full(14, self.base_price)
+        self.current_prices = np.full(self.num_lots, self.base_price)
 
 class DemandBasedPricingModel:
     """

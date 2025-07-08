@@ -93,11 +93,18 @@ class PricingDashboard:
         for lot_id in range(len(price_history[0]['prices'])):
             prices = [record['prices'][lot_id] for record in price_history]
             
+            # Try to get lot name from the first record that has lot_names
+            lot_name = f'Lot {lot_id + 1}'
+            for record in price_history:
+                if 'lot_names' in record and len(record['lot_names']) > lot_id:
+                    lot_name = record['lot_names'][lot_id]
+                    break
+            
             fig.add_trace(go.Scatter(
                 x=timestamps,
                 y=prices,
                 mode='lines+markers',
-                name=f'Lot {lot_id + 1}',
+                name=lot_name,
                 line=dict(color=self.colors[lot_id % len(self.colors)], width=2),
                 marker=dict(size=4)
             ))
@@ -210,8 +217,14 @@ class PricingDashboard:
             # Show lot details table
             st.subheader("Lot Details")
             
+            # Handle lot names if available
+            if 'lot_names' in current_data:
+                lot_ids = current_data['lot_names']
+            else:
+                lot_ids = [f"Lot {i+1}" for i in range(len(prices))]
+            
             lot_details = pd.DataFrame({
-                'Lot_ID': range(1, len(prices) + 1),
+                'Lot_ID': lot_ids,
                 'Occupancy': current_data['occupancy'],
                 'Capacity': current_data['capacity'],
                 'Occupancy_Rate': occupancy_rates,
@@ -250,8 +263,13 @@ class PricingDashboard:
             
             # Create popup text
             occupancy_rate = (current_data['occupancy'][i] / current_data['capacity'][i]) * 100
+            if 'lot_names' in current_data:
+                lot_name = current_data['lot_names'][i]
+            else:
+                lot_name = f"Lot {i+1}"
+            
             popup_text = f"""
-            <b>Lot {i+1}</b><br>
+            <b>{lot_name}</b><br>
             Price: ${price:.2f}<br>
             Occupancy: {current_data['occupancy'][i]}/{current_data['capacity'][i]} ({occupancy_rate:.1f}%)<br>
             Queue: {current_data['queue_length'][i]} vehicles<br>
